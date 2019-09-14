@@ -67,11 +67,13 @@ class Home extends Component {
 
   render() {
     return (
-    <div style={{height: "100%", width: "100%", padding: "0px", display: "flex", flexDirection: "row", justifyContent: "center"}}>
-    <BubbleChart
-      data={this.state.data}
-    />
-    </div>
+    <body>
+      <div style={{height: "800px", width: "100%", padding: "0px", display: "flex", flexDirection: "row", justifyContent: "center"}}>
+      <BubbleChart
+        data={this.state.data}
+      />
+      </div>
+    </body>
     );
   }
 }

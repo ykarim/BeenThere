@@ -37,7 +37,7 @@ class Home extends Component {
       <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
         <div style={{ width: "65%", textAlign: "flex-start" }}>
           <h1>
-            Been Therefdsafs
+            Been There
         </h1>
           We all go through hard times, and sometimes it's nice to simply know that you aren't alone.
           Post your stories of hard times to see similar stories. Warning! There may be triggering content below,
