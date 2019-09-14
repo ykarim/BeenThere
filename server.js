@@ -41,15 +41,17 @@ process.on('SIGINT', function () {
 });
 
 // Express REST endpoints
-app.get('/api/getRes', (req, res) => {
-  PostSchema.findOne({}, function (err, post) {
-    if (err) return console.error(err);
-    res.json(post.content);
+app.get('/api/getPosts', (req, res) => {
+  PostSchema.find({}, function (err, posts) {
+    posts = posts.filter(post => post && post.text !== "" && post.time)
+
+    res.json({
+      posts: posts.reverse(),
+    });
   });
 });
 
 app.post('/api/submitPost', (request, response) => {
-  console.log(request.body);
   PostSchema.create({
     ...request.body.postContent,
   }, (err, doc) => {
@@ -57,6 +59,16 @@ app.post('/api/submitPost', (request, response) => {
       response.status(200).json({ success: true });
     } else {
       response.status(400).json({ success: false });
+    }
+  });
+});
+
+app.post('/api/votePost', (req, response) => {
+  PostSchema.findOneAndUpdate({ _id: req.body.postId }, { $inc: { counter: 1 } }, { new: true }, (err, doc) => {
+    if (!err) {
+      response.status(200).json({ success: true, post: doc });
+    } else {
+      response.status(400).json({ success: false, post: doc });
     }
   });
 });
