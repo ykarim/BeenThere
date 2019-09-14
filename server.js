@@ -7,13 +7,14 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 //MongoDB imports
 const mongoose = require('mongoose');
 const db = mongoose.connection;
-const url = 'mongodb+srv://user:4g5l5DkljpG5iNsJ@chatroom-pqfv4.mongodb.net/test?retryWrites=true';
-mongoose.connect(url, {useNewUrlParser: true});
+const url =
+    'mongodb+srv://root:HackHealth2019@cluster0-08anz.mongodb.net/test?retryWrites=true&w=majority';
+mongoose.connect(url, { useNewUrlParser: true });
 
 // Creating schemas
 const mySchema = new mongoose.Schema({
-  name: String,
-  content: String
+    username: String,
+    text: String,
 });
 const MySchema = mongoose.model('MySchema', mySchema);
 
