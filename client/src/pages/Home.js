@@ -32,7 +32,6 @@ class Home extends Component {
           We all go through hard times, and sometimes it's nice to simply know that you aren't alone.
           Post your stories of hard times to see similar stories. Warning! There may be triggering content below,
           please read with caution.
-          import ReactBubbleChart from 'react-bubble-chart';
         <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "100%"}}>
         <div style={{display: "flex", flexDirection: "row", alignItems: "center", marginTop: "14px"}}>
         Sorting by
@@ -62,7 +61,6 @@ class Home extends Component {
               {post.comments.length} comments
             </div>
           </div>)}
-
       </div>
     </div>
     );

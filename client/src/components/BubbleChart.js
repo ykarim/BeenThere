@@ -39,9 +39,7 @@ class BubbleChart extends React.Component {
       selectedColor="#737373"
       selectedTextColor="#d9d9d9"
       fixedDomain={{min: -1, max: 1}}
-      onClick={console.log("fdsfs")}
-      legend={true}
-      legendSpacing={0}
+      onClick={() => console.log("fdsfs")}
     />;
   }
 }
