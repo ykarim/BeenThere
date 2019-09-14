@@ -33,13 +33,13 @@ class BubbleChart extends React.Component {
     }));
 
     return <ReactBubbleChart
-      className="my-cool-chart"
+      className="chart"
       colorLegend={colorLegend}
       data={data}
       selectedColor="#737373"
       selectedTextColor="#d9d9d9"
       fixedDomain={{min: -1, max: 1}}
-      legend={true}
+      legend={false}
       onClick={() => console.log("fdsfs")}
     />;
   }

@@ -25,12 +25,10 @@ code {
 /* Center the contents of the bubble chart */
 .bubble-chart-container {
   flex: 1;
-  height: 1000px;
   position: relative;
   display: flex;
   user-select: none;
   justify-content: center;
-  background-color: yellow;
 }
 
 /* Center text in the circle, and hide any overflow */
@@ -64,4 +62,9 @@ code {
 /* Make sure to unhide the text when hovering */
 .bubble-chart-container .bubble-chart-text .bubble-label.small:hover {
   font-size: 0.8em;
+}
+
+.chart {
+  height: 100%;
+  width: 100%;
 }

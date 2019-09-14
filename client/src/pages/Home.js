@@ -37,7 +37,7 @@ class Home extends Component {
       <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
         <div style={{ width: "65%", textAlign: "flex-start" }}>
           <h1>
-            Been There
+            Been Therefdsafs
         </h1>
           We all go through hard times, and sometimes it's nice to simply know that you aren't alone.
           Post your stories of hard times to see similar stories. Warning! There may be triggering content below,
@@ -67,7 +67,7 @@ class Home extends Component {
                 </div>
               </div>
               {post.text}
-              <div class={"text-button"} style={{ color: "#474747", marginTop: "8px", marginBottom: "16px" }}>
+              <div className={"text-button"} style={{ color: "#474747", marginTop: "8px", marginBottom: "16px" }}>
                 {post.comments.length} comments
             </div>
             </div>)}
