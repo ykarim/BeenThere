@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Home from './pages/Home'
+import Post from './pages/post';
 import Graph from './pages/Graph'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 export default class App extends Component {
-  constructor(props)  {
+  constructor(props) {
     super(props)
     this.state = {
     }
@@ -18,7 +19,9 @@ export default class App extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route exact path='/' component={Graph} />
+            <Route exact path='/' component={Home} />
+            <Route exact path='/Post' component={Post} />
+            <Route exact path='/Graph' component={Graph} />
           </Switch>
         </div>
       </BrowserRouter>
