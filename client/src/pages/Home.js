@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge, DropdownButton, NavDropdown, Button } from 'react-bootstrap';
+var moment = require('moment');
 
 class Home extends Component {
   constructor(props) {
@@ -8,9 +9,9 @@ class Home extends Component {
     this.state = {
       content: "",
       fetchMode: 1,
-      posts: [{text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0},
-    {text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0},
-  {text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0}]
+      posts: [{text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: []},
+    {text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: []},
+  {text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: []}]
     }
   }
 
@@ -45,18 +46,18 @@ class Home extends Component {
           <div style={{borderBottom: "1px solid #8c8c8c", marginBottom: "10px"}}>
             <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
               <div style={{color: "#474747"}}>
-                6w
+                {moment(post.time).fromNow()}
               </div>
               <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
                 <Button variant="link">I've Been There</Button>
                 <div style={{color: "#474747"}}>
-                  4
+                  {post.counter}
                 </div>
               </div>
             </div>
             {post.text}
-            <div style={{color: "#474747", marginTop: "8px", marginBottom: "16px"}}>
-              4 comments
+            <div class={"text-button"} style={{color: "#474747", marginTop: "8px", marginBottom: "16px"}}>
+              {post.comments.length} comments
             </div>
           </div>)}
 
