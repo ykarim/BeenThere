@@ -12,9 +12,7 @@ class Home extends Component {
     this.state = {
       content: "",
       fetchMode: 1,
-      posts: [{ text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: [] },
-      { text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: [] },
-      { text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: [] }]
+      posts: []
     }
 
     this.onClickPostHandler = this.onClickPostHandler.bind(this);
@@ -30,6 +28,20 @@ class Home extends Component {
     event.preventDefault();
 
     this.props.history.push('/Post');
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:5000/api/getPosts')
+      .then(result => result.json())
+      .then(result => {
+        if (result && result.posts) {
+          this.setState({
+            posts: result.posts
+          })
+        }
+      }).catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -53,8 +65,8 @@ class Home extends Component {
             <Button variant="outline-primary" onClick={this.onClickPostHandler}>Post your story</Button>
           </div>
           <div style={{ borderBottom: "1px solid #8c8c8c", marginTop: "12px", marginBottom: "12px" }} />
-          {this.state.posts.map(post =>
-            <div style={{ borderBottom: "1px solid #8c8c8c", marginBottom: "10px" }}>
+          {this.state.posts.map((post, index) =>
+            <div style={{ borderBottom: "1px solid #8c8c8c", marginBottom: "10px" }} key={index}>
               <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 <div style={{ color: "#474747" }}>
                   {moment(post.time).fromNow()}

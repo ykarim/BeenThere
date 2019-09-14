@@ -41,15 +41,17 @@ process.on('SIGINT', function () {
 });
 
 // Express REST endpoints
-app.get('/api/getRes', (req, res) => {
-  PostSchema.findOne({}, function (err, post) {
-    if (err) return console.error(err);
-    res.json(post.content);
+app.get('/api/getPosts', (req, res) => {
+  PostSchema.find({}, function (err, posts) {
+    posts = posts.filter(post => post && post.text !== "" && post.time)
+
+    res.json({
+      posts
+    });
   });
 });
 
 app.post('/api/submitPost', (request, response) => {
-  console.log(request.body);
   PostSchema.create({
     ...request.body.postContent,
   }, (err, doc) => {
