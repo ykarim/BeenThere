@@ -25,10 +25,12 @@ code {
 /* Center the contents of the bubble chart */
 .bubble-chart-container {
   flex: 1;
+  height: 1000px;
   position: relative;
   display: flex;
   user-select: none;
   justify-content: center;
+  background-color: yellow;
 }
 
 /* Center text in the circle, and hide any overflow */
