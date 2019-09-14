@@ -46,7 +46,7 @@ app.get('/api/getPosts', (req, res) => {
     posts = posts.filter(post => post && post.text !== "" && post.time)
 
     res.json({
-      posts
+      posts: posts.reverse(),
     });
   });
 });
@@ -59,6 +59,16 @@ app.post('/api/submitPost', (request, response) => {
       response.status(200).json({ success: true });
     } else {
       response.status(400).json({ success: false });
+    }
+  });
+});
+
+app.post('/api/votePost', (req, response) => {
+  PostSchema.findOneAndUpdate({ _id: req.body.postId }, { $inc: { counter: 1 } }, { new: true }, (err, doc) => {
+    if (!err) {
+      response.status(200).json({ success: true, post: doc });
+    } else {
+      response.status(400).json({ success: false, post: doc });
     }
   });
 });

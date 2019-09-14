@@ -16,12 +16,8 @@ class Home extends Component {
     }
 
     this.onClickPostHandler = this.onClickPostHandler.bind(this);
-  }
-
-  getRes() {
-    fetch('/api/getRes')
-      .then(res => res.json())
-      .then(content => this.setState({ content: content }))
+    this.onClickVoteHandler = this.onClickVoteHandler.bind(this);
+    this.fetchPosts = this.fetchPosts.bind(this);
   }
 
   onClickPostHandler(event) {
@@ -30,7 +26,27 @@ class Home extends Component {
     this.props.history.push('/Post');
   }
 
-  componentDidMount() {
+  onClickVoteHandler(postId) {
+    fetch('http://localhost:5000/api/votePost', {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        postId: postId
+      }),
+    }).then(res => res.json())
+      .then(result => {
+        if (result && result.success) {
+          this.fetchPosts();
+        } else {
+          // TODO: show error to user
+        }
+      });
+  }
+
+  fetchPosts() {
     fetch('http://localhost:5000/api/getPosts')
       .then(result => result.json())
       .then(result => {
@@ -42,6 +58,10 @@ class Home extends Component {
       }).catch(error => {
         console.log(error);
       });
+  }
+
+  componentDidMount() {
+    this.fetchPosts();
   }
 
   render() {
@@ -72,7 +92,7 @@ class Home extends Component {
                   {moment(post.time).fromNow()}
                 </div>
                 <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                  <Button variant="link">I've Been There</Button>
+                  <Button variant="link" onClick={() => this.onClickVoteHandler(post._id)}>I've Been There</Button>
                   <div style={{ color: "#474747" }}>
                     {post.counter}
                   </div>
