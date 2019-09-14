@@ -1,61 +1,68 @@
 //Express imports
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const app = express();
-app.use(express.static(path.join(__dirname, 'client/build')));
+
+app.use(express.json());
+app.use(express.static('public'));
+app.use(cors({ origin: true }));
 
 //MongoDB imports
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 const url =
-    'mongodb+srv://root:HackHealth2019@cluster0-08anz.mongodb.net/test?retryWrites=true&w=majority';
+  'mongodb+srv://root:HackHealth2019@cluster0-08anz.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(url, { useNewUrlParser: true });
 
 // Creating schemas
 const mySchema = new mongoose.Schema({
-    username: String,
-    text: String,
+  text: String,
+  time: Date,
+  counter: Number,
+  comments: Array,
 });
-const MySchema = mongoose.model('MySchema', mySchema);
+const PostSchema = mongoose.model('PostSchema', mySchema);
 
 // Error handling
 db.on('error', console.error);
 
 // Function on db open
-db.once('open', function() {
-  //Create post
-  const myData = new MySchema({
-    name: "data",
-    content: "This is another lovingly constructed Boilerplate ^_^ made with a React frontent with react-router-dom and an express and mongoose backend"
-  });
-
-  //Upload Post
-  myData.save(function(err, data) {
-    if (err) return console.error(err);
-    console.log(data);
-  });
-
+db.once('open', function () {
   console.log("Connected to DB");
 });
 
 // Process is a global object referring to the system process running
-process.on('SIGINT', function() {
-   mongoose.connection.close(function () {
-       console.log('DB connection closed by Node process ending');
-       process.exit(0);
-   });
+process.on('SIGINT', function () {
+  mongoose.connection.close(function () {
+    console.log('DB connection closed by Node process ending');
+    process.exit(0);
+  });
 });
 
 // Express REST endpoints
-app.get('/api/getRes', (req,res) => {
-    MySchema.findOne({}, function (err, post) {
-      if (err) return console.error(err);
-      res.json(post.content);
-    });
+app.get('/api/getRes', (req, res) => {
+  PostSchema.findOne({}, function (err, post) {
+    if (err) return console.error(err);
+    res.json(post.content);
+  });
 });
 
-app.get('*', (req,res) =>{
-    res.sendFile(path.join(__dirname+'/client/build/404.html'));
+app.post('/api/submitPost', (request, response) => {
+  console.log(request.body);
+  PostSchema.create({
+    ...request.body.postContent,
+  }, (err, doc) => {
+    if (!err) {
+      response.status(200).json({ success: true });
+    } else {
+      response.status(400).json({ success: false });
+    }
+  });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/404.html'));
 });
 
 const port = process.env.PORT || 5000;

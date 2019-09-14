@@ -12,6 +12,7 @@ export default class PostPage extends React.Component {
         };
 
         this.onChangeTextHandler = this.onChangeTextHandler.bind(this);
+        this.submitPost = this.submitPost.bind(this);
     }
 
     onChangeTextHandler(event) {
@@ -23,7 +24,21 @@ export default class PostPage extends React.Component {
     submitPost(event) {
         event.preventDefault();
 
-
+        fetch('http://localhost:5000/api/submitPost', {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                postContent: {
+                    text: this.state.text,
+                    time: new Date().toString(),
+                    counter: 0,
+                    comments: [],
+                },
+            }),
+        }).then(result => console.log(result));
     }
 
     render() {
