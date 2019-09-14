@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge, DropdownButton, NavDropdown, Button } from 'react-bootstrap';
 import BubbleChart from '../components/BubbleChart';
+import { withRouter } from 'react-router';
+
 var moment = require('moment');
 
 class Home extends Component {
@@ -10,60 +12,68 @@ class Home extends Component {
     this.state = {
       content: "",
       fetchMode: 1,
-      posts: [{text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: []},
-    {text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: []},
-  {text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: []}]
+      posts: [{ text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: [] },
+      { text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: [] },
+      { text: "fdsfd oijdfs oiajfoisdaj foisadj foiasdj foij dsaoif jsdaoi jfoisdajoif ja foisdadj ofisadiodf oiasdf saodpixzf oisad foisadof asdokf asdojfln saddojfosdajk jfojsadoif jnasidjf asdkj foadskjfojkasdhf okasdjzokfj sadofod oaskdj s", time: new Date(), counter: 0, comments: [] }]
     }
+
+    this.onClickPostHandler = this.onClickPostHandler.bind(this);
   }
 
   getRes() {
     fetch('/api/getRes')
-    .then(res => res.json())
-    .then(content => this.setState({ content: content }))
+      .then(res => res.json())
+      .then(content => this.setState({ content: content }))
+  }
+
+  onClickPostHandler(event) {
+    event.preventDefault();
+
+    this.props.history.push('/Post');
   }
 
   render() {
     return (
-    <div style={{display: "flex", justifyContent: "center", marginTop: "30px"}}>
-      <div style={{width: "65%", textAlign: "flex-start"}}>
-        <h1>
-          Been There
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
+        <div style={{ width: "65%", textAlign: "flex-start" }}>
+          <h1>
+            Been There
         </h1>
           We all go through hard times, and sometimes it's nice to simply know that you aren't alone.
           Post your stories of hard times to see similar stories. Warning! There may be triggering content below,
           please read with caution.
-        <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "100%"}}>
-        <div style={{display: "flex", flexDirection: "row", alignItems: "center", marginTop: "14px"}}>
-        Sorting by
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginTop: "14px" }}>
+              Sorting by
         <NavDropdown title={this.state.fetchMode === 1 ? "Recent" : "Top"} id="basic-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Recent</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">Top</NavDropdown.Item>
-        </NavDropdown>
-        </div>
-        <Button variant="outline-primary">Post your story</Button>
-        </div>
-        <div style={{borderBottom: "1px solid #8c8c8c", marginTop: "12px", marginBottom: "12px"}} />
-        {this.state.posts.map(post =>
-          <div style={{borderBottom: "1px solid #8c8c8c", marginBottom: "10px"}}>
-            <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-              <div style={{color: "#474747"}}>
-                {moment(post.time).fromNow()}
-              </div>
-              <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                <Button variant="link">I've Been There</Button>
-                <div style={{color: "#474747"}}>
-                  {post.counter}
+                <NavDropdown.Item href="#action/3.1">Recent</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Top</NavDropdown.Item>
+              </NavDropdown>
+            </div>
+            <Button variant="outline-primary" onClick={this.onClickPostHandler}>Post your story</Button>
+          </div>
+          <div style={{ borderBottom: "1px solid #8c8c8c", marginTop: "12px", marginBottom: "12px" }} />
+          {this.state.posts.map(post =>
+            <div style={{ borderBottom: "1px solid #8c8c8c", marginBottom: "10px" }}>
+              <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ color: "#474747" }}>
+                  {moment(post.time).fromNow()}
+                </div>
+                <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                  <Button variant="link">I've Been There</Button>
+                  <div style={{ color: "#474747" }}>
+                    {post.counter}
+                  </div>
                 </div>
               </div>
+              {post.text}
+              <div class={"text-button"} style={{ color: "#474747", marginTop: "8px", marginBottom: "16px" }}>
+                {post.comments.length} comments
             </div>
-            {post.text}
-            <div class={"text-button"} style={{color: "#474747", marginTop: "8px", marginBottom: "16px"}}>
-              {post.comments.length} comments
-            </div>
-          </div>)}
+            </div>)}
+        </div>
       </div>
-    </div>
     );
   }
 }
-export default Home;
+export default withRouter(Home);

@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { Badge, DropdownButton, NavDropdown, Button, Form } from 'react-bootstrap';
+import { withRouter } from 'react-router';
 
-export default class PostPage extends React.Component {
+class PostPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -38,7 +39,14 @@ export default class PostPage extends React.Component {
                     comments: [],
                 },
             }),
-        }).then(result => console.log(result));
+        }).then(result => result.json())
+            .then(result => {
+                if (result && result.success) {
+                    this.props.history.push('/Graph');
+                } else {
+                    //TODO: show user error
+                }
+            });
     }
 
     render() {
@@ -78,3 +86,5 @@ export default class PostPage extends React.Component {
         );
     }
 }
+
+export default withRouter(PostPage);
