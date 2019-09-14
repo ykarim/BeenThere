@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge, DropdownButton, NavDropdown, Button } from 'react-bootstrap';
+import BubbleChart from '../components/BubbleChart';
 var moment = require('moment');
 
 class Home extends Component {
@@ -29,8 +30,9 @@ class Home extends Component {
           Been There
         </h1>
           We all go through hard times, and sometimes it's nice to simply know that you aren't alone.
-          Post your stories of hard times to see similar stories and get affirmation that you really
-          arent alone.
+          Post your stories of hard times to see similar stories. Warning! There may be triggering content below,
+          please read with caution.
+          import ReactBubbleChart from 'react-bubble-chart';
         <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "100%"}}>
         <div style={{display: "flex", flexDirection: "row", alignItems: "center", marginTop: "14px"}}>
         Sorting by
