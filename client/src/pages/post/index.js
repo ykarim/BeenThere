@@ -54,7 +54,13 @@ class PostPage extends React.Component {
             .then(result => {
                 if (result && result.success) {
                     if (this.state.show) {
-                        this.props.history.push('/Graph');
+                        this.props.history.push({
+                          pathname: '/Graph',
+                          state: {
+                            text: this.state.text,
+                            tags: this.state.tags,
+                          }
+                      });
                     } else {
                         this.props.history.push('/');
                     }
@@ -127,7 +133,7 @@ class PostPage extends React.Component {
                                 marginTop: "20px"
                                 // flexDirection: "row-reverse"
                             }}>
-                                <Button variant="primary" type="submit">Share your storys</Button>
+                                <Button variant="primary" type="submit">Share your story</Button>
                             </div>
                         </div>
                     </Form>

@@ -9,71 +9,59 @@ class Home extends Component {
     super(props)
     this.state = {
       data: [{
-         _id: "ahjkijhgbhjkix b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",
+         _id: this.props.location.state.text,
          value: 20,
          sentiment: 9,
          selected: false,
+         similar: []
       }]
     }
   }
 
   componentDidMount() {
-    let data = [{
-       _id: "b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
-       value: 8,
-       sentiment: 9,  // used to determine relative size of bubbles (required)
-       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-    },
-    {
-       _id: "mo b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
-       value: 8,
-       sentiment: 9,  // used to determine relative size of bubbles (required)
-       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-    },
-    {
-       _id: "d b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
-       value: 8,
-       sentiment: 9,  // used to determine relative size of bubbles (required)
-       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-    },
-    {
-       _id: "e b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
-       value: 8,
-       sentiment: 9,  // used to determine relative size of bubbles (required)
-       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-    },
-    {
-       _id: "f b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
-       value: 10,
-       sentiment: 9,  // used to determine relative size of bubbles (required)
-       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-    },
-    {
-       _id: "g b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
-       value: 8,
-       sentiment: 9,  // used to determine relative size of bubbles (required)
-       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-    },
-    {
-       _id: "h b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
-       value: 8,
-       sentiment: 9,  // used to determine relative size of bubbles (required)
-       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-    },
-    {
-       _id: "i b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
-       value: 8,
-       sentiment: 9,  // used to determine relative size of bubbles (required)
-       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-    }]
+    this.fetchPosts();
+  }
 
-    setTimeout(
-    function() {
-        this.setState({data: this.state.data.concat(data)});
-    }
-    .bind(this),
-    3000
-);
+  fetchPosts() {
+    fetch('http://localhost:5000/api/getPosts')
+      .then(result => result.json())
+      .then(result => {
+        if (result && result.posts) {
+          var add = []
+          for(var i = 0; i < result.posts.length; i++) {
+            var post = result.posts[i]
+
+            var similaritycount = 0
+            if (post.tags !== undefined && this.props.location.state.text !== post.text) {
+              for (var j = 0; j < post.tags.length; j++) {
+                var tag = post.tags[j].toLowerCase()
+                var mytags = this.props.location.state.tags
+                for (var k = 0; k < mytags.length; k++) {
+                  var mytag = mytags[k].toLowerCase()
+                  if (mytag === tag) {
+                    similaritycount += 1
+                  }
+                }
+              }
+            }
+            if (similaritycount > 0) {
+              console.log("WOWO")
+              add = add.concat([{_id: post.text, value: 7 + similaritycount, sentiment: 6, selected: false}])
+              similaritycount = 0
+            }
+          }
+
+          setTimeout(
+          function() {
+              console.log(add)
+              if (add.length > 0) {
+                this.setState({data: this.state.data.concat(add)});
+              }
+          }.bind(this), 3000);
+        }
+      }).catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
