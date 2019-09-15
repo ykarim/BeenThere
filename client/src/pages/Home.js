@@ -20,6 +20,7 @@ class Home extends Component {
     this.onClickPostHandler = this.onClickPostHandler.bind(this);
     this.onClickVoteHandler = this.onClickVoteHandler.bind(this);
     this.fetchPosts = this.fetchPosts.bind(this);
+    this.openCommentsPage = this.openCommentsPage.bind(this);
   }
 
   onClickPostHandler(event) {
@@ -76,6 +77,10 @@ class Home extends Component {
       });
   }
 
+  openCommentsPage(postId) {
+    this.props.history.push(`/${postId}`);
+  }
+
   show(index) {
     let temp = this.state.hidden;
     temp[index] = !this.state.hidden[index]
@@ -122,7 +127,7 @@ class Home extends Component {
             })
           }
 
-          <div className={"text-button"} style={{ color: "#474747", marginTop: "8px", marginBottom: "16px" }}>
+          <div className={"text-button"} style={{ color: "#474747", marginTop: "8px", marginBottom: "16px" }} onClick={() => this.openCommentsPage(post._id)}>
             {post.comments.length} comments
         </div>
         </div>)
