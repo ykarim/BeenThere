@@ -1,5 +1,6 @@
 import React            from 'react';
 import ReactBubbleChart from 'react-bubble-chart';
+import { withRouter } from 'react-router-dom';
 
 var colorLegend = [
   //reds from dark to light
@@ -20,12 +21,19 @@ var tooltipProps = [{
 }];
 
 class BubbleChart extends React.Component {
+
+  route(event) {
+    console.log(event)
+    this.props.history.push(`/${event.dataid}`)
+  }
+
   render () {
     var data = this.props.data.map(d => ({
       _id: d._id,
       value: d.value,
       colorValue: d.sentiment,
-      selected: d.selected
+      selected: d.selected,
+      dataid: d.dataid
     }));
 
     return <ReactBubbleChart
@@ -36,9 +44,9 @@ class BubbleChart extends React.Component {
       selectedTextColor="#d9d9d9"
       fixedDomain={{min: 0, max: 1}}
       legend={true}
-      onClick={() => console.log("fdsfs")}
+      onClick={(event) => this.route(event)}
     />;
   }
 }
 
-export default BubbleChart;
+export default withRouter (BubbleChart);

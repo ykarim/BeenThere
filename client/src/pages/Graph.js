@@ -13,7 +13,8 @@ class Home extends Component {
          value: 20,
          sentiment: 1,
          selected: false,
-         similar: []
+         similar: [],
+         dataid: this.props.location.state.id
       }]
     }
   }
@@ -47,7 +48,7 @@ class Home extends Component {
             }
             if (similaritycount > 0) {
               console.log("WOWO")
-              add = add.concat([{_id: post.text, value: 7 + (similaritycount*2), sentiment: similaritycount/this.props.location.state.tags.length, selected: false}])
+              add = add.concat([{_id: post.text, dataid: post._id, value: 7 + (similaritycount*2), sentiment: similaritycount/this.props.location.state.tags.length, selected: false}])
               similaritycount = 0
             }
           }
@@ -58,7 +59,7 @@ class Home extends Component {
               if (add.length > 0) {
                 this.setState({data: this.state.data.concat(add)});
               }
-          }.bind(this), 3000);
+          }.bind(this), 1000);
         }
       }).catch(error => {
         console.log(error);
