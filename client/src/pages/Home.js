@@ -124,7 +124,7 @@ class Home extends Component {
         ((this.state.hidden[index]) ? (
           <div style={{ flexDirection: "column", paddingBottom: "10px", paddingTop: "4px", borderBottom: "1px solid #8c8c8c", marginBottom: "10px", display: "flex", justifyContent: 'center', alignItems: 'center' }} key={index}>
             <Alert variant={'warning'}>
-              This post may contain triggering content
+              This post may contain the following triggering topic(s): {post.trigger}
             </Alert>
             <Button variant="link" onClick={() => this.show(index)}>Show post</Button>
           </div>) :
