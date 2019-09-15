@@ -14,6 +14,7 @@ class Home extends Component {
       fetchMode: 1,
       posts: [],
       hidden: [],
+      voted: [],
     }
 
     this.onClickPostHandler = this.onClickPostHandler.bind(this);
@@ -27,7 +28,8 @@ class Home extends Component {
     this.props.history.push('/Post');
   }
 
-  onClickVoteHandler(postId) {
+  onClickVoteHandler(postId, index) {
+    if(!this.state.voted[index]) {
     fetch('http://localhost:5000/api/votePost', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
@@ -40,11 +42,18 @@ class Home extends Component {
     }).then(res => res.json())
       .then(result => {
         if (result && result.success) {
-          this.fetchPosts();
+          let temp = this.state.posts
+          temp[index].counter += 1
+          this.setState({posts: temp})
         } else {
           // TODO: show error to user
         }
       });
+      let temp = this.state.voted;
+      temp[index] = true
+      this.setState({voted: temp})
+      console.log(this.state.voted)
+    }
   }
 
   fetchPosts() {
@@ -53,9 +62,12 @@ class Home extends Component {
       .then(result => {
         if (result && result.posts) {
           var hidden = result.posts.map(x => true);
+          var voted = result.posts.map(x => false);
+
           this.setState({
             posts: result.posts,
-            hidden: hidden
+            hidden: hidden,
+            voted: voted
           })
 
         }
@@ -68,9 +80,22 @@ class Home extends Component {
     let temp = this.state.hidden;
     temp[index] = !this.state.hidden[index]
     this.setState({hidden: temp})
-    console.log("WIWWIWIW")
+  }
 
-    console.log(index)
+  changeMode(mode) {
+    this.setState({fetchMode: mode})
+    let temp = this.state.posts
+    if (mode === 1) {
+      console.log("sort by time")
+      temp.sort(function(a, b){return(moment(b.time).diff(moment(a.time)))})
+    } else {
+      console.log("sort by count")
+      temp.sort(function(a, b){return(b.counter - a.counter)})
+    }
+    var hidden = this.state.posts.map(x => true);
+    var voted = this.state.posts.map(x => false);
+    this.setState({posts: temp, hidden: hidden, voted: voted})
+    console.log(temp)
   }
 
   renderPost(post, index) {
@@ -82,7 +107,7 @@ class Home extends Component {
               {moment(post.time).fromNow()}
             </div>
             <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-              <Button variant="link" onClick={() => this.onClickVoteHandler(post._id)}>I've Been There</Button>
+              <Button variant="link" onClick={() => this.onClickVoteHandler(post._id, index)}>I've Been There</Button>
               <div style={{ color: "#474747" }}>
                 {post.counter}
               </div>
@@ -95,7 +120,6 @@ class Home extends Component {
         </div>)
     }
     else {
-      console.log(this.state.hidden)
       return (
         ((this.state.hidden[index]) ? (
         <div style={{ flexDirection: "column", paddingBottom: "10px", paddingTop: "4px", borderBottom: "1px solid #8c8c8c", marginBottom: "10px", display: "flex", justifyContent: 'center', alignItems: 'center'}} key={index}>
@@ -110,7 +134,7 @@ class Home extends Component {
               {moment(post.time).fromNow()}
             </div>
             <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-              <Button variant="link" onClick={() => this.onClickVoteHandler(post._id)}>
+              <Button variant="link" onClick={() => this.onClickVoteHandler(post._id, index)}>
                 I've Been There
               </Button>
               <div style={{ color: "#474747" }}>
@@ -147,8 +171,8 @@ class Home extends Component {
             <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginTop: "14px" }}>
               Sorting by
         <NavDropdown title={this.state.fetchMode === 1 ? "Recent" : "Top"} id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Recent</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Top</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => this.changeMode(1)}>Recent</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => this.changeMode(0)}>Top</NavDropdown.Item>
               </NavDropdown>
             </div>
             <Button variant="outline-primary" onClick={this.onClickPostHandler}>Post your story</Button>
