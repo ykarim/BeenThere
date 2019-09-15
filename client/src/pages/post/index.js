@@ -36,6 +36,7 @@ class PostPage extends React.Component {
                 postContent: {
                     text: this.state.text,
                     time: new Date().toString(),
+                    trigger: this.state.trigger,
                     counter: 0,
                     comments: [],
                 },
@@ -91,7 +92,11 @@ class PostPage extends React.Component {
                         </Form.Group>
                         </div>
                         <Form.Group controlId="formBasicCheckbox">
-                          <Form.Check type="checkbox" label="I would like to see stories like mine" />
+                          <Form.Check
+                            type="checkbox"
+                            label="I would like to see stories like mine"
+                            onChange={(event) => this.setState({show: event.target.value })}
+                             />
                           <sub>
                              If checked, you may see potentially triggering content after sharing.
                           </sub>
