@@ -95,6 +95,7 @@ app.post('/api/votePost', (req, response) => {
 });
 
 app.post('/api/commentPost', (req, response) => {
+  console.log(req.body);
   PostSchema.findOneAndUpdate({ _id: req.body.postId }, { $push: { comments: req.body.comment } }, { new: true }, (err, doc) => {
     if (!err) {
       response.status(200).json({ success: true, post: doc });
