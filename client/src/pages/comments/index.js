@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, DropdownButton, NavDropdown, Button, Alert } from 'react-bootstrap';
+import { Badge, DropdownButton, NavDropdown, Button, Alert, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import moment from 'moment';
 
@@ -65,9 +65,25 @@ class Comments extends React.Component {
 
     render() {
         return (
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'row', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
-                <div style={{ flex: 0.8 }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', marginTop: 20 }}>
+                <div style={{ flex: 0.8, flexDirection: 'row' }}>
                     {this.renderPostCard(this.state.post)}
+                </div>
+
+                <div>
+                    <h1 style={{
+                        display: "inline-block",
+                        flex: 1,
+                    }}>Comments</h1>
+
+                    <Form.Group>
+                        <Form.Control
+                            as="textarea"
+                            rows="3"
+                            onChange={this.onChangeTextHandler}
+                            value={this.state.text}
+                            placeholder="Share affirmations here..." />
+                    </Form.Group>
                 </div>
             </div>
         );
