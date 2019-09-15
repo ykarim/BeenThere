@@ -35,6 +35,9 @@ class Comments extends React.Component {
         if (post && post.text) {
             return (
                 <div style={{ borderBottom: "1px solid #8c8c8c", marginBottom: "10px" }}>
+                <h1 style={{cursor: "pointer"}} onClick={() => this.props.history.push(`/`)}>
+                  Been There
+                </h1>
                     <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                         <div style={{ color: "#474747" }}>
                             {moment(post.time).fromNow()}
@@ -46,7 +49,12 @@ class Comments extends React.Component {
                             </div>
                         </div>
                     </div>
-
+                    <div style={{marginBottom: "14px", display: "flex", flexDirection: "row"}}>
+                    {post.tags.map((tag, index) =>
+                      <div style={{marginRight: "6px"}}>
+                        <Badge variant="secondary">{tag}</Badge>
+                      </div>)}
+                    </div>
                     {
                         post.text.split('\n').map((item, i) => {
                             return (
@@ -65,16 +73,18 @@ class Comments extends React.Component {
 
     render() {
         return (
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', marginTop: 20 }}>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
+            <div style={{ width: "65%", textAlign: "flex-start" }}>
                 <div style={{ flex: 0.8, flexDirection: 'row' }}>
                     {this.renderPostCard(this.state.post)}
                 </div>
 
                 <div>
-                    <h1 style={{
+                    <h3 style={{
                         display: "inline-block",
                         flex: 1,
-                    }}>Comments</h1>
+                        marginBottom: "10px"
+                    }}>Comments</h3>
 
                     <Form.Group>
                         <Form.Control
@@ -82,10 +92,11 @@ class Comments extends React.Component {
                             rows="3"
                             onChange={this.onChangeTextHandler}
                             value={this.state.text}
-                            placeholder="Share affirmations here..." />
+                            placeholder="Share your stories or words of encouragement here..." />
                     </Form.Group>
                 </div>
             </div>
+          </div>
         );
     }
 }
