@@ -118,6 +118,12 @@ class Home extends Component {
               </div>
             </div>
           </div>
+          <div style={{marginBottom: "14px", display: "flex", flexDirection: "row"}}>
+          {post.tags.map((tag, index) =>
+            <div style={{marginRight: "6px"}}>
+              <Badge variant="secondary">{tag}</Badge>
+            </div>)}
+          </div>
 
           {
             post.text.split('\n').map((item, i) => {
