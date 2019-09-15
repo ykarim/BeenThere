@@ -52,6 +52,21 @@ app.get('/api/getPosts', (req, res) => {
   });
 });
 
+app.get('/api/getPost/:postId', (req, res) => {
+  PostSchema.findById(req.params.postId, function (err, post) {
+    if (!err) {
+      res.json({
+        post,
+        success: true,
+      });
+    } else {
+      res.json({
+        success: false,
+      });
+    }
+  });
+})
+
 app.post('/api/submitPost', (request, response) => {
   PostSchema.create({
     ...request.body.postContent,
