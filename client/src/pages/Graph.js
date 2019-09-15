@@ -9,60 +9,71 @@ class Home extends Component {
     super(props)
     this.state = {
       data: [{
-         _id: "ahjkijhgbhjkix",        // unique id (required)
-         value: 1,
-         sentiment: 9,  // used to determine relative size of bubbles (required)
-         selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-      },
-      {
-         _id: "b",        // unique id (required)
-         value: 2,
-         sentiment: 9,  // used to determine relative size of bubbles (required)
-         selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-      },
-      {
-         _id: "c",        // unique id (required)
-         value: 3,
-         sentiment: 9,  // used to determine relative size of bubbles (required)
-         selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-      },
-      {
-         _id: "d",        // unique id (required)
-         value: 4,
-         sentiment: 9,  // used to determine relative size of bubbles (required)
-         selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-      },
-      {
-         _id: "e",        // unique id (required)
-         value: 8,
-         sentiment: 9,  // used to determine relative size of bubbles (required)
-         selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-      },
-      {
-         _id: "f",        // unique id (required)
-         value: 200,
-         sentiment: 9,  // used to determine relative size of bubbles (required)
-         selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-      },
-      {
-         _id: "g",        // unique id (required)
-         value: 8,
-         sentiment: 9,  // used to determine relative size of bubbles (required)
-         selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-      },
-      {
-         _id: "h",        // unique id (required)
-         value: 8,
-         sentiment: 9,  // used to determine relative size of bubbles (required)
-         selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
-      },
-      {
-         _id: "i",        // unique id (required)
-         value: 8,
-         sentiment: 9,  // used to determine relative size of bubbles (required)
-         selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
+         _id: "ahjkijhgbhjkix b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",
+         value: 20,
+         sentiment: 9,
+         selected: false,
       }]
     }
+  }
+
+  componentDidMount() {
+    let data = [{
+       _id: "b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
+       value: 8,
+       sentiment: 9,  // used to determine relative size of bubbles (required)
+       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
+    },
+    {
+       _id: "mo b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
+       value: 8,
+       sentiment: 9,  // used to determine relative size of bubbles (required)
+       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
+    },
+    {
+       _id: "d b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
+       value: 8,
+       sentiment: 9,  // used to determine relative size of bubbles (required)
+       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
+    },
+    {
+       _id: "e b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
+       value: 8,
+       sentiment: 9,  // used to determine relative size of bubbles (required)
+       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
+    },
+    {
+       _id: "f b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
+       value: 10,
+       sentiment: 9,  // used to determine relative size of bubbles (required)
+       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
+    },
+    {
+       _id: "g b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
+       value: 8,
+       sentiment: 9,  // used to determine relative size of bubbles (required)
+       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
+    },
+    {
+       _id: "h b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
+       value: 8,
+       sentiment: 9,  // used to determine relative size of bubbles (required)
+       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
+    },
+    {
+       _id: "i b fsd fdfs fsd fsd sfd sdf sfd sdf sdf sfd  sdff sf f sf fsd  fs fs fsd ",        // unique id (required)
+       value: 8,
+       sentiment: 9,  // used to determine relative size of bubbles (required)
+       selected: false,  // if true will use selectedColor/selectedTextColor for circle/text
+    }]
+
+    setTimeout(
+    function() {
+        this.setState({data: this.state.data.concat(data)});
+    }
+    .bind(this),
+    3000
+);
   }
 
   render() {

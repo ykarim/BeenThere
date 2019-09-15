@@ -68,7 +68,9 @@ class PostPage extends React.Component {
                             display: "inline-block",
                             flex: 1,
                         }}>Post</h1>
-
+                        <div style={{marginBottom: "16px"}}>
+                          Please flag your post if it contains triggering content
+                        </div>
                         <Form.Group>
                             <Form.Control as="textarea" rows="3" onChange={this.onChangeTextHandler} value={this.state.text} />
                         </Form.Group>
