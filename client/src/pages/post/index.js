@@ -59,6 +59,7 @@ class PostPage extends React.Component {
                           state: {
                             text: this.state.text,
                             tags: this.state.tags,
+                            id: result.post._id
                           }
                       });
                     } else {
