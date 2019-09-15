@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { Badge, DropdownButton, NavDropdown, Button, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router';
-
+import ReactTagInput from "@pathofdev/react-tag-input";
+import "@pathofdev/react-tag-input/build/index.css";
 
 class PostPage extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class PostPage extends React.Component {
             trigger: '',
             isLoading: false,
             show: false,
+            tags: [],
         };
 
         this.onChangeTextHandler = this.onChangeTextHandler.bind(this);
@@ -25,15 +27,8 @@ class PostPage extends React.Component {
         });
     }
 
-    handleDelete (i) {
-      const tags = this.state.tags.slice(0)
-      tags.splice(i, 1)
-      this.setState({ tags })
-    }
-
-    handleAddition (tag) {
-      const tags = [].concat(this.state.tags, tag)
-      this.setState({ tags })
+    setTags(newTags) {
+      this.setState({tags: newTags})
     }
 
     submitPost(event) {
@@ -51,6 +46,7 @@ class PostPage extends React.Component {
                     time: new Date().toString(),
                     trigger: this.state.trigger,
                     counter: 0,
+                    tags: this.state.tags,
                     comments: [],
                 },
             }),
@@ -97,6 +93,13 @@ class PostPage extends React.Component {
                                     value={this.state.text}
                                     placeholder="Share your story here..." />
                             </Form.Group>
+                            <div style={{marginBottom: "14px"}}>
+                              <div style={{marginBottom: "6px"}}>Topics (tags)</div>
+                              <ReactTagInput
+                                tags={this.state.tags}
+                                onChange={(newTags) => this.setTags(newTags)}
+                              />
+                              </div>
                             <div style={{ width: "50%" }}>
                                 <Form.Group>
                                     <Form.Label>Sensitive (possibly triggering) topics</Form.Label>
@@ -115,7 +118,7 @@ class PostPage extends React.Component {
                                 />
                                 <sub>
                                     If checked, you may see potentially triggering content after sharing.
-                          </sub>
+                                </sub>
                             </Form.Group>
 
                             <div style={{

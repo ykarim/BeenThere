@@ -691,6 +691,11 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
+"@pathofdev/react-tag-input@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@pathofdev/react-tag-input/-/react-tag-input-1.0.6.tgz#0da27269295dd3b0571ee585fa60d3b6fc9de80e"
+  integrity sha512-C8E/qzyM7AA5MxMQAr+LLHkls7i6JyywCdbrIdI8+oywc73+dpA/L1MsTCy6/8nev1ohBk2v3icvbC2esjN7yA==
+
 "@react-bootstrap/react-popper@1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@react-bootstrap/react-popper/-/react-popper-1.2.1.tgz#4edf4851d5b4dcf2eb6b264ebbed1a7b7654177b"

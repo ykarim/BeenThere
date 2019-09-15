@@ -20,6 +20,7 @@ const mySchema = new mongoose.Schema({
   text: String,
   time: Date,
   trigger: String,
+  tags: Array,
   counter: Number,
   comments: Array,
 });
