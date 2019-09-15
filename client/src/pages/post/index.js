@@ -12,6 +12,7 @@ class PostPage extends React.Component {
             text: '',
             trigger: '',
             isLoading: false,
+            show: false,
         };
 
         this.onChangeTextHandler = this.onChangeTextHandler.bind(this);
@@ -56,7 +57,11 @@ class PostPage extends React.Component {
         }).then(result => result.json())
             .then(result => {
                 if (result && result.success) {
-                    this.props.history.push('/Graph');
+                    if (this.state.show) {
+                        this.props.history.push('/Graph');
+                    } else {
+                        this.props.history.push('/');
+                    }
                 } else {
                     //TODO: show user error
                 }
@@ -71,59 +76,58 @@ class PostPage extends React.Component {
                 marginTop: "30px",
                 flex: 1,
             }}>
-            <div style={{width: "65%"}}>
-                <Form onSubmit={this.submitPost} style={{
-                    display: "flex",
-                    flex: 0.8,
-                }}>
-                    <div style={{
-                        flex: 1,
+                <div style={{ width: "65%" }}>
+                    <Form onSubmit={this.submitPost} style={{
+                        display: "flex",
+                        flex: 0.8,
                     }}>
-                        <h1 style={{
-                            display: "inline-block",
-                            flex: 1,
-                        }}>Share</h1>
-
-                        <Form.Group>
-                            <Form.Control
-                              as="textarea"
-                              rows="3"
-                              onChange={this.onChangeTextHandler}
-                              value={this.state.text}
-                              placeholder="Share your story here..." />
-                        </Form.Group>
-                        <div style={{width: "50%"}}>
-                        <Form.Group>
-                          <Form.Label>Sensitive (possibly triggering) topics</Form.Label>
-                          <Form.Control
-                            required
-                            type="text"
-                            placeholder="Leave blank if none"
-                            onChange={(event) => this.setState({trigger: event.target.value })}
-                          />
-                        </Form.Group>
-                        </div>
-                        <Form.Group controlId="formBasicCheckbox">
-                          <Form.Check
-                            type="checkbox"
-                            label="I would like to see stories like mine"
-                            onChange={(event) => this.setState({show: event.target.value })}
-                             />
-                          <sub>
-                             If checked, you may see potentially triggering content after sharing.
-                          </sub>
-                        </Form.Group>
-
                         <div style={{
                             flex: 1,
-                            display: 'flex',
-                            marginTop: "20px"
-                            // flexDirection: "row-reverse"
                         }}>
-                            <Button variant="primary" type="submit">Share your storys</Button>
+                            <h1 style={{
+                                display: "inline-block",
+                                flex: 1,
+                            }}>Share</h1>
+
+                            <Form.Group>
+                                <Form.Control
+                                    as="textarea"
+                                    rows="3"
+                                    onChange={this.onChangeTextHandler}
+                                    value={this.state.text}
+                                    placeholder="Share your story here..." />
+                            </Form.Group>
+                            <div style={{ width: "50%" }}>
+                                <Form.Group>
+                                    <Form.Label>Sensitive (possibly triggering) topics</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Leave blank if none"
+                                        onChange={(event) => this.setState({ trigger: event.target.value })}
+                                    />
+                                </Form.Group>
+                            </div>
+                            <Form.Group controlId="formBasicCheckbox">
+                                <Form.Check
+                                    type="checkbox"
+                                    label="I would like to see stories like mine"
+                                    onChange={(event) => this.setState({ show: event.target.value })}
+                                />
+                                <sub>
+                                    If checked, you may see potentially triggering content after sharing.
+                          </sub>
+                            </Form.Group>
+
+                            <div style={{
+                                flex: 1,
+                                display: 'flex',
+                                marginTop: "20px"
+                                // flexDirection: "row-reverse"
+                            }}>
+                                <Button variant="primary" type="submit">Share your storys</Button>
+                            </div>
                         </div>
-                    </div>
-                </Form>
+                    </Form>
                 </div>
             </div >
         );
