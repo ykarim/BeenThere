@@ -73,7 +73,7 @@ app.post('/api/submitPost', (request, response) => {
     ...request.body.postContent,
   }, (err, doc) => {
     if (!err) {
-      response.status(200).json({ success: true });
+      response.status(200).json({ success: true, post: doc });
     } else {
       response.status(400).json({ success: false });
     }

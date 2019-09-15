@@ -28,7 +28,7 @@ class PostPage extends React.Component {
     }
 
     setTags(newTags) {
-      this.setState({tags: newTags})
+        this.setState({ tags: newTags })
     }
 
     submitPost(event) {
@@ -62,7 +62,7 @@ class PostPage extends React.Component {
                           }
                       });
                     } else {
-                        this.props.history.push('/');
+                        this.props.history.push(`/${result.post._id}`);
                     }
                 } else {
                     //TODO: show user error
@@ -99,13 +99,13 @@ class PostPage extends React.Component {
                                     value={this.state.text}
                                     placeholder="Share your story here..." />
                             </Form.Group>
-                            <div style={{marginBottom: "14px"}}>
-                              <div style={{marginBottom: "6px"}}>Topics (tags)</div>
-                              <ReactTagInput
-                                tags={this.state.tags}
-                                onChange={(newTags) => this.setTags(newTags)}
-                              />
-                              </div>
+                            <div style={{ marginBottom: "14px" }}>
+                                <div style={{ marginBottom: "6px" }}>Topics (tags)</div>
+                                <ReactTagInput
+                                    tags={this.state.tags}
+                                    onChange={(newTags) => this.setTags(newTags)}
+                                />
+                            </div>
                             <div style={{ width: "50%" }}>
                                 <Form.Group>
                                     <Form.Label>Sensitive (possibly triggering) topics</Form.Label>
