@@ -10,6 +10,7 @@ class Comments extends React.Component {
 
         this.state = {
             post: {},
+            comments: ["fdsfsdfds", "fsdfdsfsdfsdf"]
         };
 
         this.fetchPostData = this.fetchPostData.bind(this);
@@ -29,6 +30,26 @@ class Comments extends React.Component {
 
     componentDidMount() {
         this.fetchPostData(this.props.match.params.post);
+    }
+
+    comment(event) {
+      event.preventDefault();
+      fetch('http://localhost:5000/api/comment', {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              comment: {
+                  text: this.state.comment,
+                  post: this.props.match.params.post._id
+              },
+          }),
+      }).then(result => result.json())
+          .then(result => {
+            console.log("WOWOW")
+          });
     }
 
     renderPostCard(post) {
@@ -85,15 +106,25 @@ class Comments extends React.Component {
                         flex: 1,
                         marginBottom: "10px"
                     }}>Comments</h3>
-
-                    <Form.Group>
-                        <Form.Control
-                            as="textarea"
-                            rows="3"
-                            onChange={this.onChangeTextHandler}
-                            value={this.state.text}
-                            placeholder="Share your stories or words of encouragement here..." />
-                    </Form.Group>
+                    <Form
+                    onSubmit={(event) => this.comment(event)}>
+                      <Form.Group>
+                          <Form.Control
+                              style={{marginBottom: "10px"}}
+                              as="textarea"
+                              rows="3"
+                              onChange={this.onChangeTextHandler}
+                              value={this.state.text}
+                              placeholder="Share your stories or words of encouragement here..." />
+                          <div style={{width: "100%", display: "flex", justifyContent: "flex-end"}}>
+                            <Button variant="primary" type="submit">Comment</Button>
+                          </div>
+                      </Form.Group>
+                    </Form>
+                    {this.state.comments.map((comment, index) =>
+                      <div style={{marginTop: "10px"}}>
+                        {comment}
+                      </div>)}
                 </div>
             </div>
           </div>

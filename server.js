@@ -80,6 +80,10 @@ app.post('/api/submitPost', (request, response) => {
   });
 });
 
+app.post('/api/comment', (request, response) => {
+  console.log(request.body.comment)
+});
+
 app.post('/api/votePost', (req, response) => {
   PostSchema.findOneAndUpdate({ _id: req.body.postId }, { $inc: { counter: 1 } }, { new: true }, (err, doc) => {
     if (!err) {

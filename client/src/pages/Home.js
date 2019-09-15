@@ -161,7 +161,12 @@ class Home extends Component {
                 </div>
               </div>
             </div>
-
+            <div style={{marginBottom: "14px", display: "flex", flexDirection: "row"}}>
+            {post.tags.map((tag, index) =>
+              <div style={{marginRight: "6px"}}>
+                <Badge variant="secondary">{tag}</Badge>
+              </div>)}
+            </div>
             {
               post.text.split('\n').map((item, i) => {
                 return (
@@ -188,9 +193,14 @@ class Home extends Component {
     return (
       <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
         <div style={{ width: "65%", textAlign: "flex-start" }}>
-          <h1>
-            Been There
-        </h1>
+          <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+            <h1>
+              Been There
+            </h1>
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "50px"}}>
+              <Button variant="outline-secondary" onClick={() => this.props.history.push('/Resources')}>Resources</Button>
+            </div>
+          </div>
           We all go through hard times, and sometimes it's nice to simply know that you aren't alone.
           Post your stories of hard times to see similar stories. Warning! There may be triggering content below,
           please read with caution.
