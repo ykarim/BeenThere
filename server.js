@@ -65,7 +65,7 @@ app.get('/api/getPost/:postId', (req, res) => {
       });
     }
   });
-})
+});
 
 app.post('/api/submitPost', (request, response) => {
   PostSchema.create({
@@ -81,6 +81,16 @@ app.post('/api/submitPost', (request, response) => {
 
 app.post('/api/votePost', (req, response) => {
   PostSchema.findOneAndUpdate({ _id: req.body.postId }, { $inc: { counter: 1 } }, { new: true }, (err, doc) => {
+    if (!err) {
+      response.status(200).json({ success: true, post: doc });
+    } else {
+      response.status(400).json({ success: false, post: doc });
+    }
+  });
+});
+
+app.post('/api/commentPost', (req, response) => {
+  PostSchema.findOneAndUpdate({ _id: req.body.postId }, { $push: { comments: req.body.comment } }, { new: true }, (err, doc) => {
     if (!err) {
       response.status(200).json({ success: true, post: doc });
     } else {
