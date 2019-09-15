@@ -89,7 +89,6 @@ class PostPage extends React.Component {
                                 <Form.Group>
                                     <Form.Label>Sensitive (possibly triggering) topics</Form.Label>
                                     <Form.Control
-                                        required
                                         type="text"
                                         placeholder="Leave blank if none"
                                         onChange={(event) => this.setState({ trigger: event.target.value })}

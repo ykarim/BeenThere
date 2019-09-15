@@ -99,7 +99,7 @@ class Home extends Component {
   }
 
   renderPost(post, index) {
-    if (post.trigger === undefined || post.trigger === "") {
+    if (post.trigger === undefined || post.trigger.trim() === "") {
       return (
         <div style={{ borderBottom: "1px solid #8c8c8c", marginBottom: "10px" }} key={index}>
           <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
