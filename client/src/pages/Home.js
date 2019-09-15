@@ -113,7 +113,15 @@ class Home extends Component {
               </div>
             </div>
           </div>
-          {post.text}
+
+          {
+            post.text.split('\n').map((item, i) => {
+              return (
+                <p key={i}>{item}</p>
+              );
+            })
+          }
+
           <div className={"text-button"} style={{ color: "#474747", marginTop: "8px", marginBottom: "16px" }}>
             {post.comments.length} comments
         </div>
@@ -142,7 +150,15 @@ class Home extends Component {
                 </div>
               </div>
             </div>
-            {post.text}
+
+            {
+              post.text.split('\n').map((item, i) => {
+                return (
+                  <p key={i}>{item}<br></br></p>
+                );
+              })
+            }
+
             <div className={"text-button"} style={{ color: "#474747", marginTop: "8px", marginBottom: "16px" }}>
               {post.comments.length} comments
         </div>
