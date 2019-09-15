@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Badge, DropdownButton, NavDropdown, Button, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 
+
 class PostPage extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +22,17 @@ class PostPage extends React.Component {
         this.setState({
             text: event.target.value,
         });
+    }
+
+    handleDelete (i) {
+      const tags = this.state.tags.slice(0)
+      tags.splice(i, 1)
+      this.setState({ tags })
+    }
+
+    handleAddition (tag) {
+      const tags = [].concat(this.state.tags, tag)
+      this.setState({ tags })
     }
 
     submitPost(event) {
