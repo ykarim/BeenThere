@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 
 var moment = require('moment');
 
-class Post extends Component {
+class Info extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -29,4 +29,4 @@ class Post extends Component {
     );
   }
 }
-export default withRouter(Post);
+export default withRouter(Info);

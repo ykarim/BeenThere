@@ -7,6 +7,8 @@ import Graph from './pages/Graph'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+const ReactTags = require('react-tag-autocomplete')
+
 export default class App extends Component {
   constructor(props) {
     super(props)
