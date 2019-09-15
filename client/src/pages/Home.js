@@ -60,6 +60,42 @@ class Home extends Component {
       });
   }
 
+  renderPost(post, index) {
+    console.log(post)
+    if (post.trigger === undefined || post.trigger === "") {
+      return (
+        <div style={{ borderBottom: "1px solid #8c8c8c", marginBottom: "10px" }} key={index}>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ color: "#474747" }}>
+              {moment(post.time).fromNow()}
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+              <Button variant="link" onClick={() => this.onClickVoteHandler(post._id)}>I've Been There</Button>
+              <div style={{ color: "#474747" }}>
+                {post.counter}
+              </div>
+            </div>
+          </div>
+          {post.text}
+          <div className={"text-button"} style={{ color: "#474747", marginTop: "8px", marginBottom: "16px" }}>
+            {post.comments.length} comments
+        </div>
+        </div>)
+    }
+    else {
+      return (
+        <div style={{ flexDirection: "column", paddingBottom: "10px", paddingTop: "4px", borderBottom: "1px solid #8c8c8c", marginBottom: "10px", display: "flex", justifyContent: 'center', alignItems: 'center'}} key={index}>
+          <div>
+            This post may contain triggering content
+          </div>
+          <Button variant="link" onClick={() => this.onClickVoteHandler(post._id)}>Show post</Button>
+        </div>
+      )
+    }
+
+
+  }
+
   componentDidMount() {
     this.fetchPosts();
   }
@@ -86,23 +122,7 @@ class Home extends Component {
           </div>
           <div style={{ borderBottom: "1px solid #8c8c8c", marginTop: "12px", marginBottom: "12px" }} />
           {this.state.posts.map((post, index) =>
-            <div style={{ borderBottom: "1px solid #8c8c8c", marginBottom: "10px" }} key={index}>
-              <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                <div style={{ color: "#474747" }}>
-                  {moment(post.time).fromNow()}
-                </div>
-                <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                  <Button variant="link" onClick={() => this.onClickVoteHandler(post._id)}>I've Been There</Button>
-                  <div style={{ color: "#474747" }}>
-                    {post.counter}
-                  </div>
-                </div>
-              </div>
-              {post.text}
-              <div className={"text-button"} style={{ color: "#474747", marginTop: "8px", marginBottom: "16px" }}>
-                {post.comments.length} comments
-            </div>
-            </div>)}
+            this.renderPost(post, index))}
         </div>
       </div>
     );

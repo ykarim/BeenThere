@@ -19,6 +19,7 @@ mongoose.connect(url, { useNewUrlParser: true });
 const mySchema = new mongoose.Schema({
   text: String,
   time: Date,
+  trigger: String,
   counter: Number,
   comments: Array,
 });
