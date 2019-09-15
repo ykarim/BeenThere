@@ -3,7 +3,7 @@ import ReactBubbleChart from 'react-bubble-chart';
 
 var colorLegend = [
   //reds from dark to light
-  {color: "#ffdbf7", text: 'Negative', textColor: "#000000"}, "#ffe0f8", "#ffe6f9", "#ffedfb",
+  {color: "#ffedfb", text: 'Less Similar', textColor: "#000000"}, "#ffe6f9", "#ffe0f8", {color: "#ffdbf7", text: 'More Similar', textColor: "#000000"},
 ];
 
 var tooltipProps = [{
@@ -34,7 +34,7 @@ class BubbleChart extends React.Component {
       data={data}
       selectedColor="#737373"
       selectedTextColor="#d9d9d9"
-      fixedDomain={{min: -1, max: 1}}
+      fixedDomain={{min: 0, max: 1}}
       legend={true}
       onClick={() => console.log("fdsfs")}
     />;
