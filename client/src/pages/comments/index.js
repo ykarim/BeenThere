@@ -10,6 +10,8 @@ class Comments extends React.Component {
 
         this.state = {
             post: {},
+            commentText: "",
+            voted: false
         };
 
         this.fetchPostData = this.fetchPostData.bind(this);
@@ -18,15 +20,45 @@ class Comments extends React.Component {
     }
 
     fetchPostData(postId) {
+      console.log("fdsfds")
         fetch('http://localhost:5000/api/getPost/' + postId)
             .then(result => result.json())
             .then(result => {
                 if (result.success) {
+                    let temp = result.post;
+                    temp.comments = result.post.comments.reverse();
                     this.setState({
-                        post: result.post
+                        commentText: "",
+                        post: temp
                     })
+                    console.log(this.state.commentText)
                 }
             }).catch(error => console.log(error));
+    }
+
+    onClickVoteHandler(postId, index) {
+      if (!this.state.voted) {
+        fetch('http://localhost:5000/api/votePost', {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            postId: postId
+          }),
+        }).then(res => res.json())
+          .then(result => {
+            if (result && result.success) {
+              let temp = this.state.post
+              temp.counter += 1
+              this.setState({ post: temp })
+            } else {
+              // TODO: show error to user
+            }
+          });
+        this.setState({ voted: true })
+      }
     }
 
     componentDidMount() {
@@ -54,7 +86,7 @@ class Comments extends React.Component {
         }).then(result => result.json())
             .then(result => {
                 if (result && result.success) {
-                    this.fetchPostData();
+                    this.fetchPostData(this.props.match.params.post);
                 }
             });
     }
@@ -121,10 +153,10 @@ class Comments extends React.Component {
                                     as="textarea"
                                     rows="3"
                                     onChange={this.onChangeTextHandler}
-                                    value={this.state.text}
+                                    value={this.state.commentText}
                                     placeholder="Share your stories or words of encouragement here..." />
                                 <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
-                                    <Button variant="primary" type="submit" onClick={(event) => this.comment(event)}>Comment</Button>
+                                    <Button disabled={this.state.commentText === ""} variant="primary" type="submit" onClick={(event) => this.comment(event)}>Comment</Button>
                                 </div>
                             </Form.Group>
                         </Form>
