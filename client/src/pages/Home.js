@@ -31,7 +31,7 @@ class Home extends Component {
 
   onClickVoteHandler(postId, index) {
     if (!this.state.voted[index]) {
-      fetch(`${process.env.API_URL}/api/votePost`, {
+      fetch(`/api/votePost`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         headers: {
           'Accept': 'application/json',
@@ -58,7 +58,6 @@ class Home extends Component {
   }
 
   fetchPosts() {
-    console.log(process.env.API_URL)
     fetch(`/api/getPosts`)
       .then(result => result.json())
       .then(result => {
