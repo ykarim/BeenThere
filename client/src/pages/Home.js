@@ -58,7 +58,8 @@ class Home extends Component {
   }
 
   fetchPosts() {
-    fetch(`${process.env.API_URL}/api/getPosts`)
+    console.log(process.env.API_URL)
+    fetch(`/api/getPosts`)
       .then(result => result.json())
       .then(result => {
         if (result && result.posts) {
