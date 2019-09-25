@@ -34,7 +34,7 @@ class PostPage extends React.Component {
     submitPost(event) {
         event.preventDefault();
 
-        fetch(`/api/`, {
+        fetch(`/api/submitPost`, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
                 'Accept': 'application/json',
