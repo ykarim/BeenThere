@@ -21,7 +21,7 @@ class Comments extends React.Component {
 
     fetchPostData(postId) {
       console.log("fdsfds")
-        fetch('http://localhost:5000/api/getPost/' + postId)
+        fetch(`${process.env.API_URL}/api/getPost/` + postId)
             .then(result => result.json())
             .then(result => {
                 if (result.success) {

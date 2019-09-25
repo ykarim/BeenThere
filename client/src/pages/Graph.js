@@ -24,7 +24,7 @@ class Home extends Component {
   }
 
   fetchPosts() {
-    fetch('http://localhost:5000/api/getPosts')
+    fetch(`${process.env.API_URL}/api/getPosts`)
       .then(result => result.json())
       .then(result => {
         if (result && result.posts) {
