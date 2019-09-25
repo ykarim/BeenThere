@@ -195,7 +195,7 @@ class Home extends Component {
         <div style={{ width: "65%", textAlign: "flex-start" }}>
           <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
             <h1>
-              Been There
+              Beeen There
             </h1>
             <div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "50px"}}>
               <Button variant="outline-secondary" onClick={() => this.props.history.push('/Resources')}>Resources</Button>
