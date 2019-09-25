@@ -38,7 +38,7 @@ class Comments extends React.Component {
 
     onClickVoteHandler(postId, index) {
       if (!this.state.voted) {
-        fetch('http://localhost:5000/api/votePost', {
+        fetch('/api/votePost', {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           headers: {
             'Accept': 'application/json',
@@ -73,7 +73,7 @@ class Comments extends React.Component {
 
     comment(event) {
         event.preventDefault();
-        fetch('http://localhost:5000/api/commentPost', {
+        fetch('/api/commentPost', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
                 'Accept': 'application/json',
